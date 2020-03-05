@@ -17,15 +17,14 @@ public class RegisterController {
     UserService userService;
 
     @PostMapping("/register")
-    public Account createNewAccount(@RequestBody @Valid Account user) {
-        if (!userService.checkifFree(user.getUsername())) {
+    public Account createNewAccount(@RequestBody @Valid Account account) {
+        if (!userService.checkifFree(account.getUsername())) {
             throw new TakenUsernameException("This username is already taken");
         }
-        user.setId(0);
-
-        user.setAuthorities(null);
-
-        return userService.saveUser(user);
+        account.setId(0);
+        account.setAuthorities(null);
+        if (account.getBaseValue().isEmpty()) account.setBaseValue("PLN");
+        return userService.saveUser(account);
     }
 
     @GetMapping

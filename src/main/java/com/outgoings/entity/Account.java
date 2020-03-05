@@ -1,6 +1,7 @@
 package com.outgoings.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import net.bytebuddy.implementation.bind.annotation.Default;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -17,11 +18,12 @@ public class Account {
     private String username;
 
     @NotEmpty
-    @JsonIgnore
     private String password;
 
     @ElementCollection
     private List<String> authorities;
+
+    String baseValue;
 
     @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
@@ -33,6 +35,8 @@ public class Account {
     public List<Money> getFounds() {
         return founds;
     }
+
+
 
     public void setFounds(List<Money> founds) {
         this.founds = founds;
@@ -76,5 +80,13 @@ public class Account {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getBaseValue() {
+        return baseValue;
+    }
+
+    public void setBaseValue(String baseValue) {
+        this.baseValue = baseValue;
     }
 }

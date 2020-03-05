@@ -45,6 +45,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public Account findByUsername(String username) {
+        return userRepository.findByUsername(username).get();
+    }
+
+    @Override
     public Account findById(int id) {
         Optional<Account> user = userRepository.findById(id);
         return user.orElse(null);
@@ -52,7 +57,10 @@ public class UserServiceImp implements UserService {
 
     @Override
     public boolean checkifFree(String username) {
-        return false;
+        if (userRepository.findByUsername(username).isPresent()) return false;
+
+        return true;
+
     }
 
     @Override

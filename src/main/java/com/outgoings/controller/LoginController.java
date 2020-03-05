@@ -1,5 +1,6 @@
 package com.outgoings.controller;
 
+import com.outgoings.entity.Account;
 import com.outgoings.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +13,9 @@ public class LoginController {
     UserService userService;
 
     @PostMapping("/login")
-    public String login(@RequestBody String username, @RequestBody String password){
-        String token = userService.login(username, password);
+    public String login(@RequestBody Account account){
+
+        String token = userService.login(account.getUsername(), account.getPassword());
 
         if (token.isEmpty()) return "no token found for this username, and password";
         return token;
