@@ -40,9 +40,9 @@ public class FoundsServiceImpl implements FoundsService {
     }
 
     @Override
+    @Transactional
     public List<Money> addMoney(Account account, Money money) {
         List<Money> founds;
-//        Optional<List<Money>> foundsOpt = moneyRepository.findByAccount(account);
         founds = getFounds(account);
         boolean currencyFound = false;
         for (Money money1 : founds){
@@ -66,6 +66,7 @@ public class FoundsServiceImpl implements FoundsService {
 
     // removes all values from founds, except base value,
     @Override
+    @Transactional
     public void clearFounds(Account account) {
         List<Money> founds = getFounds(account);
         for (Money money : founds){
@@ -87,6 +88,7 @@ public class FoundsServiceImpl implements FoundsService {
 
 //    sets given value count to 0
     @Override
+    @Transactional
     public void clearValue(Account account, String currency) {
         Money money = getCurrency(account, currency);
         money.setAmount(0);

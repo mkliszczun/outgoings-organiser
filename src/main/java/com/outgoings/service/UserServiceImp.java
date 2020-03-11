@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ public class UserServiceImp implements UserService {
     AccountRepository accountRepository;
 
     @Override
+    @Transactional
     public String login(String username, String password) {
         Optional<Account> userTemp = accountRepository.login(username,password);
         if(userTemp.isPresent()){
@@ -32,6 +34,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional
     public Optional<User> findByToken(String token) {
         Optional<Account> user = accountRepository.findByToken(token);
         if (user.isPresent()){
@@ -45,27 +48,32 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional
     public Account findByUsername(String username) {
         return accountRepository.findByUsername(username).get();
     }
 
     @Override
+    @Transactional
     public Account findById(int id) {
         Optional<Account> user = accountRepository.findById(id);
         return user.orElse(null);
     }
 
     @Override
+    @Transactional
     public boolean checkIfFree(String username) {
         return !accountRepository.findByUsername(username).isPresent();
     }
 
     @Override
+    @Transactional
     public Account saveUser(Account account) {
         return accountRepository.save(account);
     }
 
     @Override
+    @Transactional
     public Account addAccount(Account account) {
         Money money = new Money();
         money.setCurrency(account.getBaseValue());
