@@ -14,17 +14,18 @@ import javax.validation.Valid;
 @RestController
 public class RegisterController {
 
-    UserService userService;
+    private UserService userService;
 
     @PostMapping("/register")
     public Account createNewAccount(@RequestBody @Valid Account account) {
-        if (!userService.checkifFree(account.getUsername())) {
+        if (!userService.checkIfFree(account.getUsername())) {
             throw new TakenUsernameException("This username is already taken");
         }
         account.setId(0);
         account.setAuthorities(null);
-        if (account.getBaseValue().isEmpty()) account.setBaseValue("PLN");
-        return userService.saveUser(account);
+        if (account.getBaseValue() == null || account.getBaseValue().isEmpty()) account.setBaseValue("PLN");
+        System.out.println("if passed");
+        return userService.addAccount(account);
     }
 
     @GetMapping

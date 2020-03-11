@@ -25,7 +25,7 @@ public class Account {
 
     String baseValue;
 
-    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "account_id")
     List<Money> founds;
 
@@ -35,8 +35,6 @@ public class Account {
     public List<Money> getFounds() {
         return founds;
     }
-
-
 
     public void setFounds(List<Money> founds) {
         this.founds = founds;

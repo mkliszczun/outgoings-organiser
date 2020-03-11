@@ -11,6 +11,5 @@ import java.util.Optional;
 
 @Repository
 public interface MoneyRepository extends CrudRepository<Money, Integer> {
-//    @Query("SLELCT m FROM Money m WHERE m.account")
     Optional<List<Money>> findByAccount(Account account);
 }

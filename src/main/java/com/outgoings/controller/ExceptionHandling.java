@@ -11,12 +11,23 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionHandling {
 
     @ExceptionHandler
-    protected ResponseEntity<ExceptionResponseEntity> userNotFoundException(RuntimeException exc){
+    protected ResponseEntity<ExceptionResponseEntity> userNotFoundException(UserNotFoundException exc){
         ExceptionResponseEntity response = new ExceptionResponseEntity();
         response.setMessage(exc.getMessage());
         response.setTimestamp(System.currentTimeMillis());
         response.setStatusCode(HttpStatus.BAD_REQUEST.value());
 
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+
+    ResponseEntity<ExceptionResponseEntity> otherException(NullPointerException exc){
+        ExceptionResponseEntity response = new ExceptionResponseEntity();
+        response.setMessage(exc.getMessage());
+        response.setTimestamp(System.currentTimeMillis());
+        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        exc.printStackTrace();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 

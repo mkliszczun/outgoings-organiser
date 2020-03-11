@@ -9,9 +9,9 @@ import java.util.List;
 public interface FoundsService {
 
     List<Money> getFounds(Account account);
-    Money getValue(Account account, String value);
+    Money getCurrency(Account account, String currency);
     List<Money> addMoney(Account account, Money money);
     void clearFounds(Account account);
-    void removeValue(Account account, String value);
+    void clearValue(Account account, String value);
     boolean containsCurrency(List<Money> founds, String currency);
 }

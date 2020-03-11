@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class Money {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     int id;
 
     private String currency;
@@ -18,8 +19,8 @@ public class Money {
 
     private double currencyRateDifference;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
     @JsonIgnore
     private Account account;
 

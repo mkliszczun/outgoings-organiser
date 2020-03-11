@@ -3,15 +3,12 @@ package com.outgoings.controller;
 import com.outgoings.entity.Account;
 import com.outgoings.entity.Money;
 import com.outgoings.exception.ResourceNotFoundException;
-import com.outgoings.repository.MoneyRepository;
-import com.outgoings.repository.UserRepository;
 import com.outgoings.service.FoundsService;
 import com.outgoings.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -64,15 +61,15 @@ public class FoundsController {
     @DeleteMapping("/{value}")
     String removeValue(Authentication authentication, @PathVariable String value){
         Account account = userService.findByUsername(authentication.getName());
-        foundsService.removeValue(account, value);
+        foundsService.clearValue(account, value);
 
-        return "value %s removed" + value;
+        return "value "+ value + " removed";
     }
 
     @GetMapping("/{value}")
-    Money getParticularValue(@PathVariable String money, Authentication authentication){
+    Money getParticularValue(@PathVariable String value, Authentication authentication){
         Account account = userService.findByUsername(authentication.getName());
-        Money money1 = foundsService.getValue(account, money);
+        Money money1 = foundsService.getCurrency(account, value);
         if (money1 != null)return money1;
         throw new ResourceNotFoundException("Money not found");
     }

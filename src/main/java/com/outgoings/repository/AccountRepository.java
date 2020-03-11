@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends CrudRepository<Account, Integer> {
+public interface AccountRepository extends CrudRepository<Account, Integer> {
 
     @Query("SELECT a FROM Account a where a.username = ?1 and a.password = ?2 ")
     Optional<Account> login(String username, String password);
