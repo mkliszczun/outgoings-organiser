@@ -32,6 +32,10 @@ public class Account {
     @JsonIgnore
     String token;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "account_id")
+    private List<Transaction> transactions;
+
     public List<Money> getFounds() {
         return founds;
     }
@@ -86,5 +90,13 @@ public class Account {
 
     public void setBaseValue(String baseValue) {
         this.baseValue = baseValue;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }
