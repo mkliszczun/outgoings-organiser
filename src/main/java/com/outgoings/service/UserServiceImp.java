@@ -2,6 +2,7 @@ package com.outgoings.service;
 
 import com.outgoings.entity.Account;
 import com.outgoings.entity.Money;
+import com.outgoings.exception.ResourceNotFoundException;
 import com.outgoings.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -44,6 +45,7 @@ public class UserServiceImp implements UserService {
                     true, true, AuthorityUtils.createAuthorityList("USER"));
             return Optional.of(user2);
         }
+
         return Optional.empty();
     }
 

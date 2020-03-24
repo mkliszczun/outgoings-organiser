@@ -10,6 +10,7 @@ import java.util.List;
 public interface TransactionService {
     Transaction addTransaction(Account account, Transaction transaction);
     void deleteTransaction(Transaction transaction);
+    Transaction getById(int id);
     Transaction editTransaction(Account account, Transaction transaction);
     List<Transaction> getTransactions(Account account);
     void clearTransactions(Account account);

@@ -1,5 +1,7 @@
 package com.outgoings.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +18,8 @@ public class Transaction {
     private String title;
     private String value;
     private double amount;
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JsonIgnore
     private Account account;
 
     public int getId() {

@@ -7,6 +7,7 @@ import com.outgoings.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -35,35 +36,23 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    @Transactional
     public List<Transaction> getTransactions(Account account) {
         return transactionRepository.findByAccount(account);
     }
 
     @Override
+    @Transactional
     public void clearTransactions(Account account) {
-//        for(Transaction transaction : getTransactions(account)){
-//            deleteTransaction(transaction);
-//        }
-
-        List<Transaction> transactions = getTransactions(account);
-        for (Transaction transaction : transactions){
-            deleteTransaction(transaction);
+        for (Transaction transaction : getTransactions(account)){
+            transactionRepository.delete(transaction);
         }
+    }
 
-        transactions.clear();
-
-//        to avoid null transactions
-        Transaction transaction = new Transaction();
-        transaction.setAccount(account);
-        transaction.setAmount(0);
-        transaction.setTitle("Initial transaction");
-        transaction.setValue(account.getBaseValue());
-        transaction.setDate(new Date());
-
-        transactions.add(transaction);
-        transactionRepository.save(transaction);
-
-        accountRepository.save(account);
+    @Override
+    @Transactional
+    public Transaction getById(int id) {
+        return transactionRepository.findById(id).orElse(null);
     }
 
     @Autowired
@@ -75,4 +64,5 @@ public class TransactionServiceImpl implements TransactionService {
     public void setAccountRepository(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
+
 }
