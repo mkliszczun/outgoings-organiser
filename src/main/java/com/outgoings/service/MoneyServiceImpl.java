@@ -51,23 +51,6 @@ public class MoneyServiceImpl implements MoneyService {
             return desiredCurrency;
         }
 
-//        List<Money> founds;
-//        founds = getMoney(account);
-//        boolean currencyFound = false;
-//        for (Money money1 : founds){
-//            if (money1.getCurrency().equalsIgnoreCase(money.getCurrency())){
-//                double amount = money1.getAmount() + money.getAmount();
-//                money1.setAmount(amount);
-//                currencyFound = true;
-//                break;
-//            }
-//        }
-//        if (!currencyFound){
-//            founds.add(money);
-//            money.setAccount(account);
-//            moneyRepository.save(money);
-//        }
-//        return founds;
     }
 
     @Override
@@ -79,7 +62,6 @@ public class MoneyServiceImpl implements MoneyService {
         }
     }
 
-//    sets given value count to 0
     @Override
     @Transactional
     public void deleteValue(Account account, String currency) {
