@@ -24,8 +24,8 @@ public class RegisterController {
         account.setId(0);
         account.setAuthorities(null);
         if (account.getBaseValue() == null || account.getBaseValue().isEmpty()) account.setBaseValue("PLN");
-        System.out.println("if passed");
-        return userService.addAccount(account);
+        account.setBaseValue(account.getBaseValue().toUpperCase());
+        return userService.saveUser(account);
     }
 
     @GetMapping

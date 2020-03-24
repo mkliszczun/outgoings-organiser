@@ -74,19 +74,6 @@ public class UserServiceImp implements UserService {
         return accountRepository.save(account);
     }
 
-    @Override
-    @Transactional
-    public Account addAccount(Account account) {
-        Money money = new Money();
-        money.setCurrency(account.getBaseValue());
-        money.setAmount(0);
-        money.setAccount(account);
-        List<Money> founds = new ArrayList<>();
-        founds.add(money);
-        account.setFounds(founds);
-        return accountRepository.save(account);
-    }
-
     @Autowired
     public void setAccountRepository(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;

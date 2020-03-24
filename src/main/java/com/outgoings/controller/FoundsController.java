@@ -3,7 +3,7 @@ package com.outgoings.controller;
 import com.outgoings.entity.Account;
 import com.outgoings.entity.Money;
 import com.outgoings.exception.ResourceNotFoundException;
-import com.outgoings.service.FoundsService;
+import com.outgoings.service.MoneyService;
 import com.outgoings.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/founds")
 public class FoundsController {
 
-    FoundsService foundsService;
+    MoneyService moneyService;
     UserService userService;
 
     @GetMapping
@@ -24,7 +24,7 @@ public class FoundsController {
 
         Account account = userService.findByUsername(username);
 
-        List<Money> founds = foundsService.getFounds(account);
+        List<Money> founds = moneyService.getMoney(account);
 
         return founds;
     }
@@ -32,36 +32,34 @@ public class FoundsController {
     @PostMapping
     List<Money> setFounds(Authentication authentication, List<Money> founds){
         Account account = userService.findByUsername(authentication.getName());
-        if (!foundsService.containsCurrency(founds, account.getBaseValue())) {
+        if (!moneyService.containsCurrency(founds, account.getBaseValue())) {
             Money money = new Money();
             money.setAmount(0);
             money.setCurrency(account.getBaseValue());
             founds.add(money);
         }
-        account.setFounds(founds);
-        userService.saveUser(account);
 
         return founds;
     }
 
     @PutMapping
-    List<Money> addFounds(@RequestBody Money money, Authentication authentication){
+    Money addFounds(@RequestBody Money money, Authentication authentication){
         Account account = userService.findByUsername(authentication.getName());
 
-        return foundsService.addMoney(account, money);
+        return moneyService.addMoney(account, money);
     }
 
     @DeleteMapping
     String clearFounds(Authentication authentication){
         Account account = userService.findByUsername(authentication.getName());
-        foundsService.clearFounds(account);
+        moneyService.clearFounds(account);
         return "Founds Cleared";
     }
 
     @DeleteMapping("/{value}")
     String removeValue(Authentication authentication, @PathVariable String value){
         Account account = userService.findByUsername(authentication.getName());
-        foundsService.clearValue(account, value);
+        moneyService.deleteValue(account, value);
 
         return "value "+ value + " removed";
     }
@@ -69,14 +67,14 @@ public class FoundsController {
     @GetMapping("/{value}")
     Money getParticularValue(@PathVariable String value, Authentication authentication){
         Account account = userService.findByUsername(authentication.getName());
-        Money money1 = foundsService.getCurrency(account, value);
+        Money money1 = moneyService.getCurrency(account, value);
         if (money1 != null)return money1;
         throw new ResourceNotFoundException("Money not found");
     }
 
     @Autowired
-    public void setFoundsService(FoundsService foundsService) {
-        this.foundsService = foundsService;
+    public void setMoneyService(MoneyService moneyService) {
+        this.moneyService = moneyService;
     }
 
     @Autowired

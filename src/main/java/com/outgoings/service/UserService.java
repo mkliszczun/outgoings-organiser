@@ -12,5 +12,4 @@ public interface UserService {
     Account findById(int id);
     boolean checkIfFree(String username);
     Account saveUser(Account user);
-    Account addAccount(Account account);
 }

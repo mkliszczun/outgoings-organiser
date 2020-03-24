@@ -24,20 +24,20 @@ public class Account {
 
     String baseValue;
 
-    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "account_id")
-    List<Money> founds;
+//    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+//    @JoinColumn(name = "account_id")
+//    List<Money> founds;
 
     @JsonIgnore
     String token;
 
-    public List<Money> getFounds() {
-        return founds;
-    }
-
-    public void setFounds(List<Money> founds) {
-        this.founds = founds;
-    }
+//    public List<Money> getFounds() {
+//        return founds;
+//    }
+//
+//    public void setFounds(List<Money> founds) {
+//        this.founds = founds;
+//    }
 
     public int getId() {
         return id;
