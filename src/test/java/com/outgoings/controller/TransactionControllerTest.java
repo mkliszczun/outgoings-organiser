@@ -18,6 +18,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -73,8 +74,28 @@ class TransactionControllerTest {
                 .andExpect(jsonPath("$.title").value("Test"));
     }
     @Test
+    @WithMockUser(username = "testUser", roles = "USER")
+    void getTransactionsShouldReturnTransactions() throws Exception {
+        Account account = new Account();
+        account.setId(1);
+        account.setUsername("testUser");
 
-    void getTransactionsShouldReturnTransactions() throws Exception{
+        Transaction t1 = new Transaction();
+        t1.setId(10);
+        t1.setTitle("T1");
+
+        Transaction t2 = new Transaction();
+        t2.setId(20);
+        t2.setTitle("T2");
+
+        Mockito.when(userService.findByUsername("testUser")).thenReturn(account);
+        Mockito.when(transactionService.getTransactions(account))
+                .thenReturn(Arrays.asList(t1, t2));
+
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/api/transactions"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(10))
+                .andExpect(jsonPath("$[1].id").value(20));
 
     }
 }

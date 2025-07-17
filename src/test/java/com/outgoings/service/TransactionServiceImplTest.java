@@ -121,4 +121,22 @@ class TransactionServiceImplTest {
         assertNull(result);
     }
 
+    @Test
+    void deleteTransaction_shouldCallRepositoryDelete() {
+        Transaction t = new Transaction();
+        transactionService.deleteTransaction(t);
+        Mockito.verify(transactionRepository).delete(t);
+    }
+
+    @Test
+    void clearTransactions_shouldHandleEmptyList() {
+        Account account = new Account();
+        Mockito.when(transactionRepository.findByAccount(account))
+                .thenReturn(Collections.emptyList());
+
+        transactionService.clearTransactions(account);
+
+        Mockito.verify(transactionRepository, Mockito.never()).delete(Mockito.any());
+    }
+
 }
