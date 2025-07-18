@@ -1,73 +1,73 @@
 package com.outgoings.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "transactions")
 public class Transaction {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
-    private String title;
-    private String value;
-    private double amount;
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Account account;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date date;
 
-    public int getId() {
-        return id;
-    }
+  private String title;
+  private String value;
+  private double amount;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JsonIgnore
+  private Account account;
 
-    public Date getDate() {
-        return date;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public Date getDate() {
+    return date;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public void setDate(Date date) {
+    this.date = date;
+  }
 
-    public String getValue() {
-        return value;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public double getAmount() {
-        return amount;
-    }
+  public String getValue() {
+    return value;
+  }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+  public void setValue(String value) {
+    this.value = value;
+  }
 
-    public Account getAccount() {
-        return account;
-    }
+  public double getAmount() {
+    return amount;
+  }
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
+  public void setAmount(double amount) {
+    this.amount = amount;
+  }
+
+  public Account getAccount() {
+    return account;
+  }
+
+  public void setAccount(Account account) {
+    this.account = account;
+  }
 }

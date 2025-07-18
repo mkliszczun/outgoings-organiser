@@ -1,77 +1,72 @@
 package com.outgoings.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Entity
 public class Account {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-    @NotEmpty
-    private String username;
+  @NotEmpty private String username;
 
-    @NotEmpty
-    private String password;
+  @NotEmpty private String password;
 
-    @ElementCollection
-    private List<String> authorities;
+  @ElementCollection private List<String> authorities;
 
-    String baseValue;
+  String baseValue;
 
-    @JsonIgnore
-    String token;
+  @JsonIgnore String token;
 
-    public int getId() {
-        return id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public List<String> getAuthorities() {
-        return authorities;
-    }
+  public List<String> getAuthorities() {
+    return authorities;
+  }
 
-    public void setAuthorities(List<String> authorities) {
-        this.authorities = authorities;
-    }
+  public void setAuthorities(List<String> authorities) {
+    this.authorities = authorities;
+  }
 
-    public String getToken() {
-        return token;
-    }
+  public String getToken() {
+    return token;
+  }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+  public void setToken(String token) {
+    this.token = token;
+  }
 
-    public String getBaseValue() {
-        return baseValue;
-    }
+  public String getBaseValue() {
+    return baseValue;
+  }
 
-    public void setBaseValue(String baseValue) {
-        this.baseValue = baseValue;
-    }
+  public void setBaseValue(String baseValue) {
+    this.baseValue = baseValue;
+  }
 }

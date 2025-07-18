@@ -10,23 +10,24 @@ import org.springframework.security.core.AuthenticationException;
 @TestConfiguration
 public class TestSecurityConfig {
 
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        return new AuthenticationProvider() {
-            @Override
-            public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-                return authentication; // accept any authentication
-            }
+  @Bean
+  public AuthenticationProvider authenticationProvider() {
+    return new AuthenticationProvider() {
+      @Override
+      public Authentication authenticate(Authentication authentication)
+          throws AuthenticationException {
+        return authentication; // accept any authentication
+      }
 
-            @Override
-            public boolean supports(Class<?> authentication) {
-                return true; // supports any type
-            }
-        };
-    }
+      @Override
+      public boolean supports(Class<?> authentication) {
+        return true; // supports any type
+      }
+    };
+  }
 
-    @Bean
-    public AuthenticationManager authenticationManager() {
-        return authentication -> authentication; // dummy auth
-    }
+  @Bean
+  public AuthenticationManager authenticationManager() {
+    return authentication -> authentication; // dummy auth
+  }
 }

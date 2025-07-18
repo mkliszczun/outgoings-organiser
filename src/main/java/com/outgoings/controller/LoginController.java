@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-    UserService userService;
+  UserService userService;
 
-    @PostMapping("/login")
-    public String login(@RequestBody Account account){
+  @PostMapping("/login")
+  public String login(@RequestBody Account account) {
 
-        String token = userService.login(account.getUsername(), account.getPassword());
+    String token = userService.login(account.getUsername(), account.getPassword());
 
-        if (token.isEmpty()) return "no token found for this username, and password";
-        return token;
-    }
+    if (token.isEmpty()) return "no token found for this username, and password";
+    return token;
+  }
 
-    @PostMapping("/api/logout")
-    public String logout(Authentication authentication){
-        Account account = userService.findByUsername(authentication.getName());
-        account.setToken("");
-        return "Successfully logged out";
-    }
+  @PostMapping("/api/logout")
+  public String logout(Authentication authentication) {
+    Account account = userService.findByUsername(authentication.getName());
+    account.setToken("");
+    return "Successfully logged out";
+  }
 
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+  @Autowired
+  public void setUserService(UserService userService) {
+    this.userService = userService;
+  }
 }
