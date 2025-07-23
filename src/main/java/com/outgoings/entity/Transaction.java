@@ -13,9 +13,12 @@ public class Transaction {
   private int id;
 
   @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "transaction_date")
   private Date date;
 
   private String title;
+
+  @Column(name = "transaction_value")
   private String value;
   private double amount;
 
