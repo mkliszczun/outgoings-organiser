@@ -16,5 +16,7 @@ public interface MoneyService {
 
   void deleteValue(Account account, String value);
 
+  double calculateValue(Account account, String value);
+
   boolean containsCurrency(List<Money> founds, String currency);
 }
